@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd ">
-    <apikit:config name="cab_process_api-config" api="resource::0c6545d5-ff1e-4a7f-818a-0e4b0af955d0:cab_process_api:1.0.3:raml:zip:cab_process_api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd ">
+    <apikit:config name="cab_process_api-config" api="resource::0c6545d5-ff1e-4a7f-818a-0e4b0af955d0:cab_process_api:1.0.4:raml:zip:cab_process_api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="cab_process_api-main">
         <http:listener config-ref="HTTP_Listener_config" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -121,21 +121,21 @@ output application/json
         </error-handler>
     </flow>
     <flow name="get:\cabs:cab_process_api-config">
-		<flow-ref doc:name="Flow Reference" doc:id="302556f9-eea6-40f2-aba5-dbaf4200646b" name="getCabsFlow"/>
+        <flow-ref doc:name="Flow Reference" doc:id="302556f9-eea6-40f2-aba5-dbaf4200646b" name="getCabsFlow" />
     </flow>
-	<flow name="post:\cabs:application\json:cab_process_api-config">
-		<flow-ref doc:name="Flow Reference" doc:id="d0c170a5-5dc1-4a3f-b173-273e9277351a" name="postCabsFlow"/>
+    <flow name="post:\cabs:application\json:cab_process_api-config">
+        <flow-ref doc:name="Flow Reference" doc:id="d0c170a5-5dc1-4a3f-b173-273e9277351a" name="postCabsFlow" />
     </flow>
-	<flow name="get:\orders:cab_process_api-config">
-		<flow-ref doc:name="Flow Reference" doc:id="127b0cbd-66cb-426c-9aca-2320af03b6d5" name="getOrdersFlow"/>
+    <flow name="get:\orders:cab_process_api-config">
+        <flow-ref doc:name="Flow Reference" doc:id="127b0cbd-66cb-426c-9aca-2320af03b6d5" name="getOrdersFlow" />
     </flow>
-	<flow name="post:\orders:application\json:cab_process_api-config">
-		<flow-ref doc:name="Flow Reference" doc:id="35e0a00a-cd01-4844-b580-83ff30f77117" name="postOrdersFlow"/>
+    <flow name="post:\orders:application\json:cab_process_api-config">
+        <flow-ref doc:name="Flow Reference" doc:id="35e0a00a-cd01-4844-b580-83ff30f77117" name="postOrdersFlow" />
     </flow>
-	<flow name="put:\orders:application\json:cab_process_api-config">
-		<flow-ref doc:name="Flow Reference" doc:id="6b834065-de9a-47c9-9cac-513d82f773f9" name="putOrdersFlow"/>
+    <flow name="put:\orders:application\json:cab_process_api-config" doc:id="34ffed44-1198-4a5a-8913-13505e213727">
+        <flow-ref doc:name="Flow Reference" doc:id="6b834065-de9a-47c9-9cac-513d82f773f9" name="putOrdersFlow" />
     </flow>
-	<flow name="delete:\orders:application\json:cab_process_api-config">
-		<flow-ref doc:name="Flow Reference" doc:id="9706f43a-565b-4096-b556-3f37cddbf9cb" name="deleteOrdersFlow"/>
+    <flow name="delete:\orders:application\json:cab_process_api-config">
+        <flow-ref doc:name="Flow Reference" doc:id="9706f43a-565b-4096-b556-3f37cddbf9cb" name="deleteOrdersFlow" />
     </flow>
 </mule>
