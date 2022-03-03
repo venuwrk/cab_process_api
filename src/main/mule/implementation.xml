@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="getCabsFlow" doc:id="95c59bac-0245-4ace-96e2-e9ad9c50ca16" >
+		<http:request method="GET" doc:name="Request" doc:id="e8f001e5-8b84-4840-b5a3-0b2b4563b194" config-ref="HTTP_Request_configuration" path="/cabs">
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"source" : attributes.queryParams.source,
+	"destination" : attributes.queryParams.destination
+}]]]></http:query-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="0dcfa670-87a9-4081-b937-be5b0a1d40e3" message="#[payload]"/>
+	</flow>
+	<flow name="postCabsFlow" doc:id="9a8e8b88-9011-4b0c-a133-9115974a75b3" >
+		<http:request method="POST" doc:name="Request" doc:id="ea2db1aa-9207-4229-aabe-12403f30f074" config-ref="HTTP_Request_configuration" path="/cabs"/>
+		<ee:transform doc:name="Transform Message" doc:id="de8e3bdf-082f-4f82-8f09-3b4a1d405c52">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+
+	payload
+]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="454751ee-feb2-4f21-97cf-3b0f73b3ba9d" />
+	</flow>
+	<flow name="getOrdersFlow" doc:id="71a7d917-45e5-4e05-afb4-ddc9427747fa" >
+		<http:request method="GET" doc:name="Request" doc:id="68c5e3b5-a04f-4f54-b8dd-fbc04edd69b9" config-ref="HTTP_Request_configuration" path="/orders">
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"order_Id" : attributes.queryParams.order_Id
+}]]]></http:query-params>
+		</http:request>
+	</flow>
+	<flow name="postOrdersFlow" doc:id="980c2831-790a-4c75-aae2-a83a14fea139" >
+		<http:request method="POST" doc:name="Request" doc:id="91bdab0a-26d4-403b-a0d6-a0e3f2af2050" config-ref="HTTP_Request_configuration" path="/orders"/>
+		<logger level="INFO" doc:name="Logger" doc:id="60051b9a-db58-47d9-a472-fdf2da7c9b77" message="#[payload]"/>
+	</flow>
+	<flow name="putOrdersFlow" doc:id="6d9142b1-de95-45c2-8882-a228085147c0" >
+		<http:request method="PUT" doc:name="Request" doc:id="a5975de7-5c38-403a-b1c3-5ef3f5885ac8" config-ref="HTTP_Request_configuration" path="/orders"/>
+		<set-payload value="Booking Completed" doc:name="Set Payload" doc:id="917a9e9f-c2d6-4454-a3e8-80cc17508695" />
+		<logger level="INFO" doc:name="Logger" doc:id="7be26b6f-390b-4685-88a3-bb1027edf83b" message="#[payload]"/>
+	</flow>
+	<flow name="deleteOrdersFlow" doc:id="e025dca2-211b-4d9c-9158-30a3e3b7cb4b" >
+		<http:request method="DELETE" doc:name="Request" doc:id="9dda9075-2bdc-43c4-b65d-3dce583718c1" config-ref="HTTP_Request_configuration" path="/orders"/>
+		<set-payload value="Booking Cancelled" doc:name="Set Payload" doc:id="047bd005-255b-453e-9d26-5f7aadad9581" />
+		<logger level="INFO" doc:name="Logger" doc:id="493b625a-70a3-407c-9e04-126437d8b077" message="#[payload]"/>
+	</flow>
+</mule>
