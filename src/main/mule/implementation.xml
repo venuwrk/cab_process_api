@@ -17,6 +17,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<logger level="INFO" doc:name="Logger" doc:id="0dcfa670-87a9-4081-b937-be5b0a1d40e3" message="#[payload]"/>
 	</flow>
 	<flow name="postCabsFlow" doc:id="9a8e8b88-9011-4b0c-a133-9115974a75b3" >
+		<logger level="INFO" doc:name="Logger" doc:id="b533cac2-3840-485d-a8a5-11048f6fbc03" message="Enter Post Cabs Flow"/>
 		<http:request method="POST" doc:name="Request" doc:id="ea2db1aa-9207-4229-aabe-12403f30f074" config-ref="HTTP_Request_configuration" path="/cabs"/>
 		<ee:transform doc:name="Transform Message" doc:id="de8e3bdf-082f-4f82-8f09-3b4a1d405c52">
 					<ee:message>
@@ -28,9 +29,10 @@ output application/json
 ]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="454751ee-feb2-4f21-97cf-3b0f73b3ba9d" />
+		<logger level="INFO" doc:name="Logger" doc:id="454751ee-feb2-4f21-97cf-3b0f73b3ba9d" message="Exit Post Cabs Flow"/>
 	</flow>
 	<flow name="getOrdersFlow" doc:id="71a7d917-45e5-4e05-afb4-ddc9427747fa" >
+		<logger level="INFO" doc:name="Logger" doc:id="63d07195-f14f-441d-8eca-76855621ee57" message="Enter Get Orders Flow"/>
 		<http:request method="GET" doc:name="Request" doc:id="68c5e3b5-a04f-4f54-b8dd-fbc04edd69b9" config-ref="HTTP_Request_configuration" path="/orders">
 			<http:query-params ><![CDATA[#[output application/java
 ---
@@ -38,19 +40,23 @@ output application/json
 	"order_Id" : attributes.queryParams.order_Id
 }]]]></http:query-params>
 		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="040e1dff-a463-46c4-8232-2fc6b6b2ef85" message="Exit Get Orders Flow"/>
 	</flow>
 	<flow name="postOrdersFlow" doc:id="980c2831-790a-4c75-aae2-a83a14fea139" >
+		<logger level="INFO" doc:name="Logger" doc:id="4f4c8c35-6702-4a4c-a0d0-2f40cbf05e67" message="Enter Post Orders Flow"/>
 		<http:request method="POST" doc:name="Request" doc:id="91bdab0a-26d4-403b-a0d6-a0e3f2af2050" config-ref="HTTP_Request_configuration" path="/orders"/>
-		<logger level="INFO" doc:name="Logger" doc:id="60051b9a-db58-47d9-a472-fdf2da7c9b77" message="#[payload]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="60051b9a-db58-47d9-a472-fdf2da7c9b77" message="Exit Post Orders Flow"/>
 	</flow>
 	<flow name="putOrdersFlow" doc:id="6d9142b1-de95-45c2-8882-a228085147c0" >
+		<logger level="INFO" doc:name="Logger" doc:id="402527e7-afb4-4cf1-a704-547a92e570c9" message="Enter Post Orders Flow"/>
 		<http:request method="PUT" doc:name="Request" doc:id="a5975de7-5c38-403a-b1c3-5ef3f5885ac8" config-ref="HTTP_Request_configuration" path="/orders"/>
 		<set-payload value="Booking Completed" doc:name="Set Payload" doc:id="917a9e9f-c2d6-4454-a3e8-80cc17508695" />
-		<logger level="INFO" doc:name="Logger" doc:id="7be26b6f-390b-4685-88a3-bb1027edf83b" message="#[payload]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="7be26b6f-390b-4685-88a3-bb1027edf83b" message="Exit Put Orders Flow"/>
 	</flow>
 	<flow name="deleteOrdersFlow" doc:id="e025dca2-211b-4d9c-9158-30a3e3b7cb4b" >
+		<logger level="INFO" doc:name="Logger" doc:id="690e4622-af94-4ca7-ba96-3acbf4896684" message="Enter Delete Orders Flow"/>
 		<http:request method="DELETE" doc:name="Request" doc:id="9dda9075-2bdc-43c4-b65d-3dce583718c1" config-ref="HTTP_Request_configuration" path="/orders"/>
 		<set-payload value="Booking Cancelled" doc:name="Set Payload" doc:id="047bd005-255b-453e-9d26-5f7aadad9581" />
-		<logger level="INFO" doc:name="Logger" doc:id="493b625a-70a3-407c-9e04-126437d8b077" message="#[payload]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="493b625a-70a3-407c-9e04-126437d8b077" message="Exit Delete Orders Flow"/>
 	</flow>
 </mule>
